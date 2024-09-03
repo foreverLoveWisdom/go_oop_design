@@ -35,7 +35,7 @@ func TestConsoleLogger(t *testing.T) {
 	}
 }
 
-func TestFileLogger_Log(t *testing.T) {
+func TestFileLogger(t *testing.T) {
 	filename := "test.log"
 	fl, err := NewFileLogger(filename)
 	if err != nil {
