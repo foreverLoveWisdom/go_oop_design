@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestConsoleLogger(t *testing.T) {
+func TestConsoleLogger_Log(t *testing.T) {
 	oldFlags := log.Flags()
 	oldWriter := log.Writer()
 
