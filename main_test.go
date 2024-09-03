@@ -7,7 +7,8 @@ import (
 	"testing"
 )
 
-func TestConsoleLogger_Log(t *testing.T) {
+func TestConsoleLogger(t *testing.T) {
+	// Save the current log flags and writer
 	oldFlags := log.Flags()
 	oldWriter := log.Writer()
 
@@ -31,5 +32,23 @@ func TestConsoleLogger_Log(t *testing.T) {
 	out, _ := io.ReadAll(r)
 	if string(out) != message+"\n" {
 		t.Errorf("Expected %s, but got %s", message, string(out))
+	}
+}
+
+func TestFileLogger_Log(t *testing.T) {
+	filename := "test.log"
+	fl, err := NewFileLogger(filename)
+	if err != nil {
+		t.Errorf("Error creating file logger: %v", err)
+	}
+	defer os.Remove(filename)
+	message := "Hello FileLogger"
+	fl.Log(message)
+	content, err := os.ReadFile(filename)
+	if err != nil {
+		t.Fatalf("failed to read log file: %v", err)
+	}
+	if string(content) != message+"\n" {
+		t.Errorf("expected %q but got %q", message+"\n", string(content))
 	}
 }
