@@ -42,6 +42,7 @@ func main() {
 	defer os.Remove("test.log")
 	fl.Log("Hello FileLogger")
 	fileContent, err := os.ReadFile("test.log")
+
 	if err != nil {
 		log.Println("Error reading file:", err)
 		return

@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestConsoleLogger(t *testing.T) {
+func TestConsoleLogger_Log(t *testing.T) {
 	// Save the current log flags and writer
 	oldFlags := log.Flags()
 	oldWriter := log.Writer()
@@ -35,7 +35,7 @@ func TestConsoleLogger(t *testing.T) {
 	}
 }
 
-func TestFileLogger(t *testing.T) {
+func TestFileLogger_Log(t *testing.T) {
 	filename := "test.log"
 	fl, err := NewFileLogger(filename)
 	if err != nil {
@@ -50,5 +50,12 @@ func TestFileLogger(t *testing.T) {
 	}
 	if string(content) != message+"\n" {
 		t.Errorf("expected %q but got %q", message+"\n", string(content))
+	}
+}
+
+func TestNewFileLogger_ErrorHandling(t *testing.T) {
+	_, err := NewFileLogger("/root/test.log")
+	if err == nil {
+		t.Errorf("Expected an error but got nil")
 	}
 }
